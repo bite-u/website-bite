@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bite-U</title>
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+      margin: 0;
+      padding: 0;
+      color: #333;
+      text-align: center;
+    }
+    .container {
+      max-width: 600px;
+      margin: auto;
+      padding: 20px;
+    }
+    h1 { font-size: 26px; }
+    .card {
+      background: white;
+      border-radius: 20px;
+      padding: 20px;
+      margin-top: 20px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    }
+    button {
+      display: block;
+      width: 100%;
+      padding: 12px;
+      margin: 8px 0;
+      border: none;
+      border-radius: 12px;
+      background: #ff6f61;
+      color: white;
+      font-size: 15px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    button.locked {
+      background: #ccc;
+      cursor: not-allowed;
+    }
+    button.selected {
+      background: #4caf50;
+    }
+    input {
+      width: 100%;
+      padding: 10px;
+      border-radius: 10px;
+      border: 1px solid #ccc;
+      margin-top: 10px;
+    }
+    .hidden { display: none; }
+    .ig {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      font-size: 18px;
+    }
+    .ig img {
+      width: 20px;
+      height: 20px;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <h1>Halo! temukan varian rasa bite-u favoritmu</h1>
+
+  <div class="card">
+    <p>
+      Bite-U merupakan produk makanan inovatif berupa tortilla wrap dengan bahan dasar kombinasi ubi dan tepung mocaf, yang memberikan alternatif variasi bahan dibandingkan tortilla pada umumnya. Produk ini dikombinasikan dengan isian ayam fillet yang diolah dengan berbagai varian rasa, serta dilengkapi dengan sayuran segar. Bite-U hadir dalam tiga varian menu utama, yaitu Bite-U Grill-It dengan cita rasa gurih dan smoky, Bite-U Burn-It dengan saus pedas khas Korea, serta Bite-U Melt-It dengan saus creamy carbonara.
+    </p>
+  </div>
+
+  <div class="card" id="quiz">
+    <h3>Nama kamu</h3>
+    <input type="text" id="nama" placeholder="Masukkan nama kamu">
+
+    <div class="question">
+      <h3>Mood kamu sekarang</h3>
+      <button onclick="selectOption(this)">A. Laperr</button>
+      <button onclick="selectOption(this)">B. Santai</button>
+      <button onclick="selectOption(this)">C. Ngantuk</button>
+    </div>
+
+    <div class="question">
+      <h3>Seberapa suka kamu sama makanan pedas</h3>
+      <button onclick="selectOption(this)">A. Suka banget</button>
+      <button onclick="selectOption(this)">B. Sedikit suka</button>
+      <button onclick="selectOption(this)">C. Tidak suka</button>
+    </div>
+
+    <div class="question">
+      <h3>Apa gaya makanan favoritmu</h3>
+      <button onclick="selectOption(this)">A. Kekinian</button>
+      <button onclick="selectOption(this)">B. Viral</button>
+      <button onclick="selectOption(this)">C. Unik</button>
+    </div>
+
+    <div class="question">
+      <h3>Kamu tipe yang seperti apa</h3>
+      <button onclick="selectOption(this)">A. Suka eksplor makanan baru</button>
+      <button onclick="selectOption(this)">B. Setia sama makanan favorit</button>
+      <button onclick="selectOption(this)">C. Apa saja yang penting makan</button>
+    </div>
+
+    <div class="question">
+      <h3>Kamu lagi pingin makan apa hari ini?</h3>
+      <button onclick="result('pedas', this)">A. Pedas</button>
+      <button onclick="result('gurih', this)">B. Gurih</button>
+      <button onclick="result('creamy', this)">C. Creamy</button>
+    </div>
+  </div>
+
+  <div class="card hidden" id="result"></div>
+
+  <div class="card hidden" id="social">
+    <h3>Follow sosial media kami!</h3>
+    <div class="ig">
+      <img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png" alt="IG">
+      <a href="#">@biteu_official</a>
+    </div>
+  </div>
+</div>
+
+<script>
+function selectOption(btn) {
+  const parent = btn.parentElement;
+  const buttons = parent.querySelectorAll('button');
+
+  buttons.forEach(b => {
+    b.classList.add('locked');
+    b.disabled = true;
+  });
+
+  btn.classList.remove('locked');
+  btn.classList.add('selected');
+}
+
+function result(choice, btn) {
+  selectOption(btn);
+
+  const nama = document.getElementById('nama').value || 'Kamu';
+  let text = '';
+
+  if (choice === 'creamy') {
+    text = `${nama}, kamu cocok dengan Bite-U Melt-It`;
+  } else if (choice === 'gurih') {
+    text = `${nama}, kamu cocok dengan Bite-U Grill-It`;
+  } else if (choice === 'pedas') {
+    text = `${nama}, kamu cocok dengan Bite-U Burn-It`;
+  }
+
+  document.getElementById('result').classList.remove('hidden');
+  document.getElementById('result').innerHTML = `<h2>${text}</h2>`;
+
+  document.getElementById('social').classList.remove('hidden');
+}
+</script>
+
+</body>
+</html>
